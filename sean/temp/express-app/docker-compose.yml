@@ -1,0 +1,9 @@
+services:
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: express-app:latest
+    ports:
+      - "3000:3000"
+    container_name: express-app-container
