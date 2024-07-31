@@ -2,7 +2,7 @@ services:
   react-app-build:
     build:
       context: .
-      dockerfile: BuildDockerfile
+      dockerfile: Dockerfile.build
     image: react-app-build:latest
     environment:
       - NODE_ENV=production
