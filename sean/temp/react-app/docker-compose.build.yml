@@ -1,0 +1,9 @@
+services:
+  react-app-build:
+    build:
+      context: .
+      dockerfile: BuildDockerfile
+    image: react-app-build:latest
+    environment:
+      - NODE_ENV=production
+    container_name: react-app-build-container

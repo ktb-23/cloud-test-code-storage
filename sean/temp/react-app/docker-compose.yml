@@ -1,0 +1,14 @@
+services:
+  react-app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: react-app-dev:latest
+    volumes:
+      - .:/app
+      - /app/node_modules # 로컬 node_modules 무시
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    container_name: react-app-dev-container
