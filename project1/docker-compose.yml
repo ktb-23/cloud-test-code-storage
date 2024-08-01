@@ -1,0 +1,22 @@
+version: '3'
+services:
+  react:
+    build:
+      context: ./react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  express:
+    build:
+      context: ./express-app
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+
+  flask:
+    build:
+      context: ./flask-app
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
