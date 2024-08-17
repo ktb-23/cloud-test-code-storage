@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+    <title>EC2 Time</title>
+</head>
+<body>
+    <img src="//i.namu.wiki/i/2fc20-lj8gY8A3xzRnckPGpE0KpPnV6jvURP3NOph69rpVD3WoAm0avaKy00azaZvWobSAwd7UgAyIfjW0PM4GyJ-fNxT14Uun5exfuXYdUBiMIOOSUuiGqHt2AMV_m7_9Pvtcu3ZnmCPDztkjzxMQ.webp"/>
+    <h1>서버 시간</h1>
+    <button id="getTimeButton">확인</button>
+    <p id="serverTime"></p>
+    <script>
+      document.getElementById('getTimeButton').addEventListener('click', function() {
+          fetch('https://flaskapi.ktb23team.link/time')
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('serverTime').textContent = "Server Time: " + data.server_time;
+              })
+              .catch(error => console.error('Error fetching server time:', error));
+      });
+  </script>
+</body>
 </html>
