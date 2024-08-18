@@ -1,0 +1,46 @@
+name: Sean Back End CI CD
+
+on:
+  push:
+    branches:
+      - sean-be-cicd
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+          ref: sean-be-cicd
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Amazon ECR
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        aws configure set default.region ap-southeast-2
+        aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com
+
+    - name: Build Docker image
+      run: |
+        docker build -t my-app:latest .
+      working-directory: flask-app
+
+    - name: Tag Docker image
+      run: |
+        IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+        docker tag my-app:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:$IMAGE_TAG
+        docker tag my-app:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:latest
+
+    - name: Push Docker image to ECR
+      run: |
+        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:latest
+        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:$IMAGE_TAG
