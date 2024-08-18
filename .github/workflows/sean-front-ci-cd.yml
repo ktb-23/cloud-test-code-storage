@@ -22,9 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: sample-ts-react
 
       - name: Run build script
         run: npm run build
+        working-directory: sample-ts-react
 
       - name: Upload to S3
         env:
@@ -33,3 +35,4 @@ jobs:
           AWS_REGION: 'ap-southeast-2'
         run: |
           aws s3 cp ./build s3://sample-ts-react-automation-test --recursive
+        working-directory: sample-ts-react/build
