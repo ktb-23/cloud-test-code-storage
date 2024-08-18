@@ -37,10 +37,10 @@ jobs:
     - name: Tag Docker image
       run: |
         IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-        docker tag my-app:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:$IMAGE_TAG
-        docker tag my-app:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:latest
+        docker tag sample-sydney-main-server:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com/sample-sydney-main-server:$IMAGE_TAG
+        docker tag sample-sydney-main-server:latest 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com/sample-sydney-main-server:latest
 
     - name: Push Docker image to ECR
       run: |
-        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:latest
-        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com:$IMAGE_TAG
+        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com/sample-sydney-main-server:latest
+        docker push 975049946739.dkr.ecr.ap-southeast-2.amazonaws.com/sample-sydney-main-server:$IMAGE_TAG
